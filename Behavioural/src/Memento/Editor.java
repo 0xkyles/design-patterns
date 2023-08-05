@@ -4,15 +4,22 @@ import java.util.Stack;
 
 public class Editor {
     private String content;
-    private Color selectedColor;
+    private Color selectedColor = Color.BLACK;
     Stack<String> contentHistory = new Stack<>();
     Stack<Color> colorHistory = new Stack<>();
 
-    public void undo() {
+    public void undoContent() {
         if(contentHistory.empty()) return;
 
         contentHistory.pop();
         this.content = contentHistory.empty() ? "" : contentHistory.peek();
+    }
+
+    public void undoSelectedColor() {
+        if(colorHistory.empty()) return;
+
+        colorHistory.pop();
+        this.selectedColor = colorHistory.empty() ? Color.BLACK : colorHistory.peek();
     }
 
     public String getContent() {
