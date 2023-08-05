@@ -1,18 +1,15 @@
 package Memento;
 
-import java.util.Stack;
-
 public class Editor {
     private String content;
     private Color selectedColor = Color.BLACK;
-    Stack<EditorState> history = new Stack<>();
+    private final History history = new History();
 
     public void undo() {
-        if(history.empty()) return;
+        var state = history.pop();
 
-        history.pop();
-        content = history.empty() ? "" : history.peek().getContent();
-        selectedColor = history.empty() ? Color.BLACK : history.peek().getSelectedColor();
+        this.content = state.getContent();
+        this.selectedColor = state.getSelectedColor();
     }
 
     public String getContent() {
