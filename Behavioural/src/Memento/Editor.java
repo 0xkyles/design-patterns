@@ -4,14 +4,15 @@ import java.util.Stack;
 
 public class Editor {
     private String content;
-    private String title;
-    Stack<String> stack = new Stack<>();
+    private Color selectedColor;
+    Stack<String> contentHistory = new Stack<>();
+    Stack<Color> colorHistory = new Stack<>();
 
     public void undo() {
-        if(stack.empty()) return;
+        if(contentHistory.empty()) return;
 
-        stack.pop();
-        this.content = stack.empty() ? "" : stack.peek();
+        contentHistory.pop();
+        this.content = contentHistory.empty() ? "" : contentHistory.peek();
     }
 
     public String getContent() {
@@ -19,7 +20,16 @@ public class Editor {
     }
 
     public void setContent(String content) {
-        stack.push(content);
+        contentHistory.push(content);
         this.content = content;
+    }
+
+    public Color getSelectedColor() {
+        return selectedColor;
+    }
+
+    public void setSelectedColor(Color selectedColor) {
+        colorHistory.push(selectedColor);
+        this.selectedColor = selectedColor;
     }
 }

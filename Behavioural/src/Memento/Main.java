@@ -7,6 +7,9 @@ public class Main {
         editor.setContent("A");
         editor.setContent("B");
         System.out.println("Editor's content before undo : " + editor.getContent());
+        editor.undo(); // A
+        System.out.println("Editor's content after undo : " + editor.getContent());
+        editor.setContent("C");
         editor.undo();
         System.out.println("Editor's content after undo : " + editor.getContent());
     }
