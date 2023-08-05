@@ -5,21 +5,14 @@ import java.util.Stack;
 public class Editor {
     private String content;
     private Color selectedColor = Color.BLACK;
-    Stack<String> contentHistory = new Stack<>();
-    Stack<Color> colorHistory = new Stack<>();
+    Stack<EditorState> history = new Stack<>();
 
-    public void undoContent() {
-        if(contentHistory.empty()) return;
+    public void undo() {
+        if(history.empty()) return;
 
-        contentHistory.pop();
-        this.content = contentHistory.empty() ? "" : contentHistory.peek();
-    }
-
-    public void undoSelectedColor() {
-        if(colorHistory.empty()) return;
-
-        colorHistory.pop();
-        this.selectedColor = colorHistory.empty() ? Color.BLACK : colorHistory.peek();
+        history.pop();
+        content = history.empty() ? "" : history.peek().getContent();
+        selectedColor = history.empty() ? Color.BLACK : history.peek().getSelectedColor();
     }
 
     public String getContent() {
@@ -27,8 +20,8 @@ public class Editor {
     }
 
     public void setContent(String content) {
-        contentHistory.push(content);
         this.content = content;
+        history.push(new EditorState(content, selectedColor));
     }
 
     public Color getSelectedColor() {
@@ -36,7 +29,12 @@ public class Editor {
     }
 
     public void setSelectedColor(Color selectedColor) {
-        colorHistory.push(selectedColor);
         this.selectedColor = selectedColor;
+        history.push(new EditorState(content, selectedColor));
+    }
+
+    @Override
+    public String toString() {
+        return "Content : " +  content + ", selected color : " + selectedColor.name();
     }
 }

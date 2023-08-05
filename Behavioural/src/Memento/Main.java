@@ -6,8 +6,9 @@ public class Main {
 
         editor.setContent("A");
         editor.setContent("B");
-        System.out.println("Editor's content before undo : " + editor.getContent());
-        editor.undoContent();
-        System.out.println("Editor's content after undo : " + editor.getContent());
+        editor.setSelectedColor(Color.RED);
+        System.out.println("Editor's content before undo : " + editor);
+        editor.undo();
+        System.out.println("Editor's content after undo : " + editor);
     }
 }
